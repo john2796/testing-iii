@@ -1,18 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Controls = props => {
-  const { locked, closed, toggleLocked, toggleClosed } = props;
+const Controls = ({locked, closed, toggleLocked, toggleClosed,}) => (
+  <div className="controls panel">
+    <button 
+    data-testid="closegate"
+    type="button" disabled={!closed} onClick={toggleLocked} className="toggle-btn">
+      {locked ? 'Unlock Gate' : 'Lock Gate'}
+    </button>
 
-  return (
-    <div className="controls panel">
-      <button disabled={!closed} onClick={toggleLocked} className="toggle-btn">
-        {locked ? 'Unlock Gate' : 'Lock Gate'}
-      </button>
-      <button disabled={locked} onClick={toggleClosed} className="toggle-btn">
-        {closed ? 'Open Gate' : 'Close Gate'}
-      </button>
-    </div>
-  );
+
+
+    <button 
+    data-testid="locked"
+    type="button" disabled={locked} onClick={toggleClosed} className="toggle-btn">
+      {closed ? 'Open Gate' : 'Close Gate'}
+    </button>
+  </div>
+);
+
+Controls.propTypes = {
+  locked: PropTypes.bool,
+  closed: PropTypes.bool,
+  toggleLocked: PropTypes.func,
+  toggleClosed: PropTypes.func,
 };
-
 export default Controls;
